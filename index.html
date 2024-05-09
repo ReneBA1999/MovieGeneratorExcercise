@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Movie Generator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom CSS for additional styling */
+    .container {
+      margin-top: 50px;
+      text-align: center;
+    }
+    #movie-img {
+      max-width: 300px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Dropdown menu for movie selection -->
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Select a Movie
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <!-- Populate dropdown options dynamically using JavaScript -->
+      </ul>
+    </div>
+
+    <!-- Button to display a random movie -->
+    <button id="random-movie-btn" class="btn btn-primary mt-3">Random Movie</button>
+
+    <!-- Display area for random movie title and image -->
+    <h2 class="mt-4">Random Movie:</h2>
+    <h3 id="movie-title"></h3>
+    <img src="" id="movie-img" alt="Movie Image">
+  </div>
+
+  <!-- Bootstrap JavaScript and jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <!-- JavaScript code for dynamic functionality -->
+  <script>
+    const favMovies = [
+      {
+        movie: "Spiderman",
+        reasonWhy: "Awesome Effects",
+        movieImageUrl: "images/spiderman.jpg"
+      },
+      {
+        movie: "Deadpool",
+        reasonWhy: "Funny",
+        movieImageUrl: "images/deadpool.jpeg"
+      },
+      {
+        movie: "Avengers",
+        reasonWhy: "Action-packed",
+        movieImageUrl: "images/avengers.jpeg"
+      }
+    ];
+
+    // Function to populate dropdown menu with movie titles
+    function populateDropdown() {
+      const dropdownMenu = $(".dropdown-menu");
+      favMovies.forEach(movie => {
+        dropdownMenu.append(`<li><a class="dropdown-item" href="#">${movie.movie}</a></li>`);
+      });
+    }
+
+    // Function to display random movie when the button is clicked
+    $("#random-movie-btn").click(() => {
+      const randomIndex = Math.floor(Math.random() * favMovies.length);
+      const randomMovie = favMovies[randomIndex];
+      $("#movie-title").text(`"${randomMovie.movie}" - ${randomMovie.reasonWhy}`);
+      $("#movie-img").attr("src", randomMovie.movieImageUrl);
+    });
+
+    // Populate dropdown menu on page load
+    $(document).ready(() => {
+      populateDropdown();
+    });
+  </script>
+</body>
+</html>
